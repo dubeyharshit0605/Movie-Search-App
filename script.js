@@ -53,13 +53,30 @@ function displayFavorites() {
             <img src="${movie.poster}" alt="${movie.title}">
             <h3>${movie.title}</h3>
             <p>${movie.year}</p>
-          <button>Remove</button>
-
+          <button onclick="removeFromFavorites('${movie.id}')">Remove</button>
+        
         `;
 
         favorites.appendChild(movieCard);
     });
 }
+function removeFromFavorites(id){
+
+    const updatedFavorites = favoriteMovies.filter(
+        movie => movie.id !== id
+    );
+
+    localStorage.setItem(
+        'favorite',
+        JSON.stringify(updatedFavorites)
+    );
+
+    favoriteMovies.length = 0;
+    favoriteMovies.push(...updatedFavorites);
+
+    displayFavorites();
+}
+
 
  searchBtn.addEventListener('click',()=>{
      const query=searchInput.value.trim();
